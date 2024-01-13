@@ -28,7 +28,7 @@ class Camera():
         print("camera started up")
 
 
-    def capture():
+    def capture(self):
         # new_file_name = self.getNextAvailableNumber(path=self.path,
         #                                             name=self.file_name,
         #                                             format=self.format,
@@ -37,7 +37,7 @@ class Camera():
         self.picam.capture_file(new_file_name)
         print("captured image into: " + new_file_name)
 
-    def dispose():
+    def dispose(self):
         self.picam.stop()
         print("picamera stopped and disposed")
 
