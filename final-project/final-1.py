@@ -17,7 +17,6 @@ def main():
         camera.capture()
         nonlocal detect_image_captured
         detect_image_captured = True
-        print('detected movement')
 
     try:
         print("system ready")
