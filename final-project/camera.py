@@ -12,12 +12,12 @@ class Camera():
     file_name = "image_log"
     last_file_name_number = None
 
-    def __init__(self, path, file_name):
-        self.path = path
-        self.file_name = file_name
-        # check and create file
+    def __init__(self):
+        # self.path = path
+        # self.file_name = file_name
+        # # check and create file
         if not os.path.exists(self.path):
-            os.mkdir(path)
+            os.mkdir(self.path)
             print("created folder: " + self.path)
         print("starting up camera")
         self.picam = Picamera2()
