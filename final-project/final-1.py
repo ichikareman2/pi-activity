@@ -32,4 +32,5 @@ except KeyboardInterrupt:
     pass
 finally:
     GPIO.cleanup()
+    camera.dispose()
     print("GPIO cleaned up")
