@@ -33,7 +33,7 @@ class Camera():
         #                                             name=self.file_name,
         #                                             format=self.format,
         #                                             initial_number=self.last_file_name_number)
-        new_file_name = self.path + "/" + str(time.time()) + "." + self.format
+        new_file_name = self.path + "/" + str(time.time()) + "." + self.FILE_FORMAT
         self.picam.capture_file(new_file_name)
         print("captured image into: " + new_file_name)
 
