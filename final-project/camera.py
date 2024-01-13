@@ -25,14 +25,9 @@ class Camera():
         self.picam.configure(config)
         self.picam.start()
         time.sleep(2)
-        print("camera started up")
-
+        print("camera ready")
 
     def capture(self):
-        # new_file_name = self.getNextAvailableNumber(path=self.path,
-        #                                             name=self.file_name,
-        #                                             format=self.format,
-        #                                             initial_number=self.last_file_name_number)
         new_file_name = self.path + "/" + str(time.time()) + "." + self.FILE_FORMAT
         self.picam.capture_file(new_file_name)
         print("captured image into: " + new_file_name)
@@ -41,13 +36,3 @@ class Camera():
         self.picam.stop()
         print("picamera stopped and disposed")
 
-    # def getNextAvailableNumber(path, name, format, initial_number):
-    #     current_number = initial_number
-    #     if initial_number == None:
-    #         current_number = 1
-    #     while True:
-    #         full_file_name = path + name + current_number + "." + format
-    #         if os.path.exists(full_file_name):
-    #             current_number += 1
-    #         else:
-    #             return full_file_name
