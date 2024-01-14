@@ -9,7 +9,7 @@ def main():
     LOG_FOLDER_PATH = "/home/pi/Camera"
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log"
     CHECK_LOOP_SECONDS = 0.1
-    CHECK_THRESHOLD_SECOND = 3
+    CHECK_THRESHOLD_SECONDS = 3
     PIR_PIN = 4
     camera = Camera()
     email_sender = EmailSender()
@@ -43,7 +43,7 @@ def main():
             else:
                 consecutive_high_count = 0
                 detect_image_captured = False
-            if consecutive_high_count >= CHECK_THRESHOLD_SECOND and not detect_image_captured:
+            if consecutive_high_count >= CHECK_THRESHOLD_SECONDS and not detect_image_captured:
                 on_pir_detect()
             time.sleep(CHECK_LOOP_SECONDS)
     except KeyboardInterrupt:
