@@ -10,13 +10,14 @@ def main():
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log"
     CHECK_LOOP_SECONDS = 0.1
     CHECK_THRESHOLD_SECONDS = 3
+    CAPTURE_WAIT_SECONDS = 60
     PIR_PIN = 4
     camera = Camera()
     email_sender = EmailSender()
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-    detect_image_captured = False
+    last_image_capture_time = None
     consecutive_high_count = 0
 
     def update_log(file_name):
@@ -26,14 +27,16 @@ def main():
             f.write(file_name + "\n")
 
     def on_pir_detect():
-        file_name = camera.capture()
-        nonlocal detect_image_captured
-        detect_image_captured = True
-        update_log(file_name)
-        email_sender.send_email(RECEIVING_EMAIL,
-                                "Movement detected",
-                                "Movement log file: " + file_name,
-                                attachments=file_name)
+        nonlocal last_image_capture_time
+        current_time = time.time()
+        if last_image_capture_time == None or current_time - last_image_capture_time > CAPTURE_WAIT_SECONDS:
+            last_image_capture_time = current_time
+            file_name = camera.capture()
+            update_log(file_name)
+            email_sender.send_email(RECEIVING_EMAIL,
+                                    "Movement detected",
+                                    "Movement log file: " + file_name,
+                                    attachments=file_name)
 
     try:
         print("system ready")
@@ -42,8 +45,7 @@ def main():
                 consecutive_high_count += CHECK_LOOP_SECONDS
             else:
                 consecutive_high_count = 0
-                detect_image_captured = False
-            if consecutive_high_count >= CHECK_THRESHOLD_SECONDS and not detect_image_captured:
+            if consecutive_high_count >= CHECK_THRESHOLD_SECONDS:
                 on_pir_detect()
             time.sleep(CHECK_LOOP_SECONDS)
     except KeyboardInterrupt:
