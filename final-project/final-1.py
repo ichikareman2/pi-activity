@@ -7,7 +7,7 @@ from email_sender import EmailSender
 def main():
     RECEIVING_EMAIL = "kevinwillardquing@proton.me"
     LOG_FOLDER_PATH = "/home/pi/Camera"
-    LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log"
+    LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log.txt"
     CHECK_LOOP_SECONDS = 0.1
     CHECK_THRESHOLD_SECONDS = 3
     CAPTURE_WAIT_SECONDS = 60
