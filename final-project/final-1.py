@@ -2,14 +2,17 @@ import RPi.GPIO as GPIO
 import time
 import os
 from camera import Camera
+from email_sender import EmailSender
 
 def main():
+    RECEIVING_EMAIL = "kevinwillardquing@proton.me"
     LOG_FOLDER_PATH = "/home/pi/Camera"
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log"
     CHECK_LOOP_SECONDS = 0.1
     CHECK_THRESHOLD_SECOND = 3
     PIR_PIN = 4
     camera = Camera()
+    email_sender = EmailSender()
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -27,6 +30,10 @@ def main():
         nonlocal detect_image_captured
         detect_image_captured = True
         update_log(file_name)
+        email_sender.send_email(RECEIVING_EMAIL,
+                                "Movement detected",
+                                "Movement log file: " + file_name,
+                                attachments=file_name)
 
     try:
         print("system ready")
