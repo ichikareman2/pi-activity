@@ -13,9 +13,6 @@ class Camera():
     last_file_name_number = None
 
     def __init__(self):
-        # self.path = path
-        # self.file_name = file_name
-        # # check and create file
         if not os.path.exists(self.path):
             os.mkdir(self.path)
             print("created folder: " + self.path)
@@ -31,6 +28,7 @@ class Camera():
         new_file_name = self.path + "/" + str(time.time()) + "." + self.FILE_FORMAT
         self.picam.capture_file(new_file_name)
         print("captured image into: " + new_file_name)
+        return new_file_name
 
     def dispose(self):
         self.picam.stop()
