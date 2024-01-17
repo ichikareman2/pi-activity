@@ -6,13 +6,14 @@ from email_sender import EmailSender
 
 def main():
     RECEIVING_EMAIL = "kevinwillardquing@proton.me"
+    CAMERA_FOLDER_PATH = "/home/pi/Camera"
     LOG_FOLDER_PATH = "/home/pi/Camera"
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log.txt"
     CHECK_LOOP_SECONDS = 0.1
     CHECK_THRESHOLD_SECONDS = 3
     CAPTURE_WAIT_SECONDS = 60
     PIR_PIN = 4
-    camera = Camera()
+    camera = Camera(CAMERA_FOLDER_PATH)
     email_sender = EmailSender()
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)

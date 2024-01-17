@@ -12,7 +12,8 @@ class Camera():
     file_name = "image_log"
     last_file_name_number = None
 
-    def __init__(self):
+    def __init__(self, folder_path):
+        self.path = folder_path
         if not os.path.exists(self.path):
             os.mkdir(self.path)
             print("created folder: " + self.path)
