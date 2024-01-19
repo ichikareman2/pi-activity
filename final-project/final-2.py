@@ -20,7 +20,7 @@ def main():
       last_line = line
     if last_line is None:
       return "No logs"
-    with open("./check_movement_templates.html", "r") as f:
+    with open("./check_movement_template.html", "r") as f:
       template = f.read()
       readyhtml = template.replace("{{file_path}}", last_line)
       return readyhtml
