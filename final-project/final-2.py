@@ -9,7 +9,7 @@ def main():
 
   @app.route("/")
   def index():
-    return "Hello
+    return "Hello"
 
   @app.route("/check-movement")
   def check_movement():
