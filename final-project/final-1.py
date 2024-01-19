@@ -47,7 +47,7 @@ def main():
                 move_start_time = time.time()
             elif not movement_detected and move_start_time != None:
                 move_start_time = None
-            if (time.time() - move_start_time) >= CHECK_THRESHOLD_SECONDS:
+            if move_start_time != None and (time.time() - move_start_time) >= CHECK_THRESHOLD_SECONDS:
                 on_pir_detect()
             time.sleep(CHECK_LOOP_SECONDS)
     except KeyboardInterrupt:
