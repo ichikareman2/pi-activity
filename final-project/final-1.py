@@ -10,8 +10,8 @@ def main():
     LOG_FOLDER_PATH = "/home/pi/Camera"
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log.txt"
     CHECK_LOOP_SECONDS = 0.1
-    CHECK_THRESHOLD_SECONDS = 3
-    CAPTURE_WAIT_SECONDS = 60
+    CHECK_THRESHOLD_SECONDS = 3.0
+    CAPTURE_WAIT_SECONDS = 60.0
     PIR_PIN = 4
     camera = Camera(CAMERA_FOLDER_PATH)
     email_sender = EmailSender()
@@ -19,7 +19,7 @@ def main():
     GPIO.setup(PIR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     last_image_capture_time = None
-    consecutive_high_count = 0
+    move_start_time = None
 
     def update_log(file_name):
         if not os.path.exists(LOG_FOLDER_PATH):
@@ -42,11 +42,12 @@ def main():
     try:
         print("system ready")
         while True:
-            if GPIO.input(PIR_PIN):
-                consecutive_high_count += CHECK_LOOP_SECONDS
-            else:
-                consecutive_high_count = 0
-            if consecutive_high_count >= CHECK_THRESHOLD_SECONDS:
+            movement_detected = GPIO.input(PIR_PIN) == GPIO.HIGH
+            if movement_detected and move_start_time == None:
+                move_start_time = time.time()
+            elif not movement_detected and move_start_time != None:
+                move_start_time = None
+            if (time.time() - move_start_time) >= CHECK_THRESHOLD_SECONDS:
                 on_pir_detect()
             time.sleep(CHECK_LOOP_SECONDS)
     except KeyboardInterrupt:
