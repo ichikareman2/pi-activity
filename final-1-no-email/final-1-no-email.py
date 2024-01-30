@@ -8,7 +8,7 @@ def main():
     LOG_FOLDER_PATH = "/home/pi/Camera"
     LOG_FILE_PATH = LOG_FOLDER_PATH + "/" + "capture_log.txt"
     CHECK_LOOP_SECONDS = 0.1
-    CHECK_THRESHOLD_SECONDS = 3.0
+    CHECK_THRESHOLD_SECONDS = 2.0
     CAPTURE_WAIT_SECONDS = 5.0
     PIR_PIN = 4
     LED_PIN = 17
